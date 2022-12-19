@@ -11,3 +11,10 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+::placeholder{
+color: #BDBDBD;
+font-weight: 500;
+}
+.form-check-label{
+  color: #BDBDBD;
+}
