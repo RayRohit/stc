@@ -6,7 +6,7 @@ import bg from './images/bg.jpg'
 
 export default function Main() {
   return (
-    <div className="container-fluid" style={{background:`url(${bg})`,backgroundRepeat:'no-repeat',backgroundSize:'contain'}}>
+    <div className="container-fluid" style={{background:`url(${bg})`,backgroundRepeat:'no-repeat',backgroundSize:'cover'}}>
       <div className="row">
         <div className="col-sm-6">
           <div
