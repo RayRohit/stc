@@ -1,5 +1,6 @@
 import React from "react";
 import { useDropzone } from "react-dropzone";
+import bg from './images/bg.png'
 
 export default function Image(props) {
   const { acceptedFiles, getRootProps, getInputProps } = useDropzone();
@@ -11,7 +12,7 @@ export default function Image(props) {
   ));
   console.log(files);
   return (
-    <section className="container">
+    <section className="container" style={{}}>
       <div
         {...getRootProps({ className: "dropzone" })}
         className="shadow ps-3 pb-2 "
