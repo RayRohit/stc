@@ -1,26 +1,26 @@
 import React from "react";
 import { useDropzone } from "react-dropzone";
-import bg from './images/bg.png'
+import { FaImage } from "react-icons/fa";
 
 export default function Image(props) {
   const { acceptedFiles, getRootProps, getInputProps } = useDropzone();
 
-  const files = acceptedFiles.map((file) => (
-    <h6 key={file.path}>
-      {file.path}
-    </h6>
+  const Imagefiles = acceptedFiles.map((file) => (
+    <h6 key={file.path}>{file.path}</h6>
   ));
-  console.log(files);
   return (
     <section className="container" style={{}}>
       <div
         {...getRootProps({ className: "dropzone" })}
-        className="shadow ps-3 pb-2 "
-        style={{ background: "#FAFAFA" }}
+        className="shadow p-3"
+        style={{ background: "#FAFAFA",height:'136px' }}
       >
+        <div className="fs-3 py-2 text-center">
+          <FaImage />
+        </div>
         <input {...getInputProps()} />
-        <h6 className="pt-3 " style={{ color: "#BDBDBD" }}>
-          {files.length === 0 ?" Drag potrait image here ": files}
+        <h6 className="text-center " style={{ color: "#BDBDBD" }}>
+          {Imagefiles.length === 0 ? " Drag potrait image here " : Imagefiles}
         </h6>
         {/* <h4>Files</h4> */}
       </div>

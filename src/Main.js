@@ -1,7 +1,7 @@
 import React from "react";
 import Dropzone from "./Dropzone";
 import Image from "./Image";
-import bg from './images/bg.jpg'
+import bg from './images/bg1.jpeg'
 
 
 export default function Main() {
@@ -30,7 +30,7 @@ export default function Main() {
               className="card border-0 shadow p-3"
               style={{ width: "30vw", height: "65vh" }}
             >
-              <h5 className="text-center py-3">Magic Maker!</h5>
+              <h5 className="text-center py-3 fw-bold">Magic Maker!</h5>
               <div className="my-2">
                 <Dropzone />
               </div>
@@ -52,7 +52,7 @@ export default function Main() {
               </div>
               <div className="shadow mx-4 p-2 mt-4">
                 <div className="d-flex justify-content-between px-1 pt-1">
-                  <h6 style={{ fontSize: "14px" }}>Select download format</h6>
+                  <h6 style={{ fontSize: "16px" }}>Select download format</h6>
                   <div className="form-check">
                     <label className="form-check-label" for="flexCheckDefault">
                       MOV

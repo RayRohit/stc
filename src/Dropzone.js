@@ -1,29 +1,29 @@
 import React from "react";
 import { useDropzone } from "react-dropzone";
+import { FaVideo } from "react-icons/fa";
 
 export default function Dropzone(props) {
   const { acceptedFiles, getRootProps, getInputProps } = useDropzone();
 
-  const files = acceptedFiles.map((file) => (
-    <h6 key={file.path}>
-      {file.path}
-    </h6>
+  const Videofiles = acceptedFiles.map((file) => (
+    <h6 key={file.path}>{file.path}</h6>
   ));
-  console.log(files);
   return (
     <section className="container">
       <div
         {...getRootProps({ className: "dropzone" })}
-        className="shadow ps-3 py-1 "
-        style={{ background: "#FAFAFA" }}
+        className="shadow p-3"
+        style={{ background: "#FAFAFA",height:'136px' }}
       >
+        <div className="fs-3 py-2 text-center">
+          <FaVideo />
+        </div>
         <input {...getInputProps()} />
-        <h6 className="pt-3 pb-1" style={{ color: "#BDBDBD" }}>
-          {files.length === 0 ?" Drag your video here ": files}
+        <h6 className="text-center" style={{ color: "#BDBDBD" }}>
+          {Videofiles.length === 0 ? " Drag your video here " : Videofiles}
         </h6>
         {/* <h4>Files</h4> */}
       </div>
-      <h6></h6>
     </section>
   );
 }
