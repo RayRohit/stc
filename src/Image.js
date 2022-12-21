@@ -13,18 +13,19 @@ export default function Image(props) {
       <div
         {...getRootProps({ className: "dropzone" })}
         className="shadow p-3"
-        style={{ background: "#FAFAFA",height:'136px' }}
+        style={{ background: "#FAFAFA", height: "136px" }}
       >
         <div className="fs-3 py-2 text-center">
           <FaImage />
         </div>
         <input {...getInputProps()} />
-        <h6 className="text-center " style={{ color: "#BDBDBD" }}>
+        <h6
+          className="text-center "
+          style={{ color: "#BDBDBD", fontSize: "14px" }}
+        >
           {Imagefiles.length === 0 ? " Drag potrait image here " : Imagefiles}
         </h6>
-        {/* <h4>Files</h4> */}
       </div>
-      <h6></h6>
     </section>
   );
 }

@@ -1,21 +1,9 @@
 import React from "react";
 import bg from "./images/bg1.jpeg";
-import { useDropzone } from "react-dropzone";
 import Image from "./Image";
 import Dropzone from "./Dropzone";
 
 export default function FormPage() {
-  const { acceptedFiles, getRootProps, getInputProps } = useDropzone();
-
-  const Videofiles = acceptedFiles.map((file) => (
-    <h6 key={file.path}>{file.path}</h6>
-  ));
-  const Imagefiles = acceptedFiles.map((files) => (
-    <h6 key={files.path}>{files.path}</h6>
-  ));
-  // const handleSubmit = (e) => {
-  //   console.log(files, file);
-  // };
   return (
     <>
       <div
@@ -54,13 +42,25 @@ export default function FormPage() {
               className="d-flex justify-content-start align-items-center "
               style={{ height: "100%" }}
             >
-              <form className="shadow-lg bg-white mb-3" style={{minHeight:'60vh',borderRadius:'20px'}}>
-                <h5 className="text-center py-4 fw-bolder" style={{textDecoration:'underline',textDecorationThickness:'3px',textUnderlineOffset:'4px'}}>Magic Maker!</h5>
+              <form
+                className="shadow-lg bg-white mb-3"
+                style={{ minHeight: "60vh", borderRadius: "20px" }}
+              >
+                <h5
+                  className="text-center py-4 fw-bolder"
+                  style={{
+                    textDecoration: "underline",
+                    textDecorationThickness: "3px",
+                    textUnderlineOffset: "4px",
+                  }}
+                >
+                  Magic Maker!
+                </h5>
                 <div className="row">
-                  <div className="col-sm-6 my-2">
+                  <div className="col-sm-6 col-md-12 col-lg-6 my-2">
                     <Dropzone />
                   </div>
-                  <div className="col-sm-6 my-2">
+                  <div className="col-sm-6 col-md-12 col-lg-6 my-2">
                     <Image />
                   </div>
                 </div>
@@ -68,7 +68,7 @@ export default function FormPage() {
                   <textarea
                     style={{
                       width: "100%",
-                      height: "100px",
+                      height: "136px",
                       resize: "none",
                       background: "#fafafa",
                       color: "#bdbdbd",
@@ -130,7 +130,7 @@ export default function FormPage() {
                 <div className="d-flex justify-content-end pe-4">
                   <button
                     type="button"
-                    className="btn btn-labeled btn-primary btn-lg mt-4"
+                    className="btn btn-labeled btn-primary btn-lg my-3"
                   >
                     Download
                     <span className="btn-label">
