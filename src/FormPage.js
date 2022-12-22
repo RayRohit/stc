@@ -4,6 +4,7 @@ import Image from "./Image";
 import Dropzone from "./Dropzone";
 
 export default function FormPage() {
+  
   return (
     <>
       <div
