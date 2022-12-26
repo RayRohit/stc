@@ -1,15 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { FaImage } from "react-icons/fa";
 
 export default function Image(props) {
-  const { acceptedFiles, getRootProps, getInputProps } = useDropzone();
-
-  const Imagefiles = acceptedFiles.map((file) => (
-    <h6 key={file.path}>{file.path}</h6>
-  ));
+  const [image, setImage] = useState([]);
+  const { getRootProps, getInputProps } = useDropzone({
+    onDrop: (acceptedFiles) => {
+      setImage(
+        acceptedFiles.map((file) =>
+          Object.assign(file, {
+            preview: URL.createObjectURL(file),
+          })
+        )
+      );
+    },
+  });
+  console.log(image);
   return {
-    Imagefiles,
+    image,
     renderImage: (
       <section className="container" style={{}}>
         <div
@@ -25,7 +33,7 @@ export default function Image(props) {
             className="text-center "
             style={{ color: "#BDBDBD", fontSize: "14px" }}
           >
-            {Imagefiles.length === 0 ? " Drag potrait image here " : Imagefiles}
+            {image.length === 0 ? " Drag potrait image here " : image[0].path}
           </h6>
         </div>
       </section>

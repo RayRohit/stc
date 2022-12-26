@@ -4,8 +4,8 @@ import Image from "./Image";
 import Dropzone from "./Dropzone";
 
 export default function FormPage() {
-  const { renderVideo, Videofiles } = Dropzone();
-  const { renderImage, Imagefiles } = Image();
+  const { renderVideo, files } = Dropzone();
+  const { renderImage, image } = Image();
   const [checked, setChecked] = useState("");
   const [text,setText] = useState('')
   const [mov, setMov] = useState(true);
@@ -34,7 +34,7 @@ export default function FormPage() {
   };
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log(Videofiles,Imagefiles,checked,text);
+    console.log(files[0].preview,image[0].preview,text,checked);
   }
   return (
     <>
