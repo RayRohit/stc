@@ -1,9 +1,41 @@
-import React from "react";
+import React, { useState } from "react";
 import bg from "./images/bg1.jpeg";
 import Image from "./Image";
 import Dropzone from "./Dropzone";
 
 export default function FormPage() {
+  const { renderVideo, Videofiles } = Dropzone();
+  const { renderImage, Imagefiles } = Image();
+  const [checked, setChecked] = useState("");
+  const [text,setText] = useState('')
+  const [mov, setMov] = useState(true);
+  const [avi, setAvi] = useState(true);
+  const [mpg, setMpg] = useState(true);
+  const handleChange = (data) => {
+    if(data === "mov"){
+      if(mov === true){
+        setChecked('mov')
+        setMov(!mov)
+      }
+    }
+    if(data === "avi"){
+      if(avi === true){
+        setChecked('avi')
+        setAvi(!avi)
+      }
+    }
+    if(data === "mpg"){
+      if(mpg === true){
+        setChecked('mpg')
+        setMpg(!mpg)
+      }
+    }
+    // console.log(data);
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    console.log(Videofiles,Imagefiles,checked,text);
+  }
   return (
     <>
       <div
@@ -11,6 +43,7 @@ export default function FormPage() {
         style={{
           background: `url(${bg})`,
           backgroundRepeat: "no-repeat",
+
           backgroundSize: "cover",
         }}
       >
@@ -45,22 +78,20 @@ export default function FormPage() {
               <form
                 className="shadow-lg bg-white mb-3"
                 style={{ minHeight: "60vh", borderRadius: "20px" }}
+                onSubmit={handleSubmit}
               >
-                <h5
-                  className="text-center py-4 fw-bolder"
-                >
-                  Magic Maker!
-                </h5>
+                <h5 className="text-center py-4 fw-bolder">Magic Maker!</h5>
                 <div className="row">
                   <div className="col-sm-6 col-md-12 col-lg-6 my-2">
-                    <Dropzone />
+                    {renderVideo}
                   </div>
                   <div className="col-sm-6 col-md-12 col-lg-6 my-2">
-                    <Image />
+                    {renderImage}
                   </div>
                 </div>
                 <div className="px-4 mb-3">
                   <textarea
+                    maxLength="50"
                     style={{
                       width: "100%",
                       height: "136px",
@@ -71,6 +102,8 @@ export default function FormPage() {
                     className="border-0 shadow p-3"
                     placeholder="Type your text here"
                     name="text"
+                    value={text}
+                    onChange={(e)=>setText(e.target.value)}
                   />
                 </div>
                 <div className="shadow mx-4 p-2 mb-3">
@@ -87,9 +120,10 @@ export default function FormPage() {
                         <input
                           className="form-check-input"
                           type="checkbox"
-                          value=""
+                          value={mov}
                           id="flexCheckDefault"
                           name="flexCheckDefault"
+                          onChange={() => handleChange("mov")}
                         />
                       </div>
                       <div className="form-check">
@@ -102,9 +136,10 @@ export default function FormPage() {
                         <input
                           className="form-check-input"
                           type="checkbox"
-                          value=""
+                          value={avi}
                           id="flexCheckChecked"
                           name="flexCheckChecked"
+                          onChange={() => handleChange("avi")}
                         />
                       </div>
                       <div className="form-check">
@@ -114,9 +149,10 @@ export default function FormPage() {
                         <input
                           className="form-check-input"
                           type="checkbox"
-                          value=""
+                          value={mpg}
                           id="flexCheck"
                           name="flexCheck"
+                          onChange={() => handleChange("mpg")}
                         />
                       </div>
                     </div>

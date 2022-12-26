@@ -1,7 +1,6 @@
 import React from "react";
 import bg from "./images/bg1.jpeg";
 // import Image from "./Image";
-// import Dropzone from "./Dropzone";
 import { useDropzone } from "react-dropzone";
 import { FaImage, FaVideo } from "react-icons/fa";
 
