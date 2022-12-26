@@ -22,7 +22,6 @@ export default function Dropzone(props) {
         <h6 className="text-center" style={{ color: "#BDBDBD",fontSize:'14px' }}>
           {Videofiles.length === 0 ? " Drag your video here " : Videofiles}
         </h6>
-        {/* <h4>Files</h4> */}
       </div>
     </section>
   );

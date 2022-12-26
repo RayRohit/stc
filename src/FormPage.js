@@ -4,7 +4,6 @@ import Image from "./Image";
 import Dropzone from "./Dropzone";
 
 export default function FormPage() {
-  
   return (
     <>
       <div
@@ -49,11 +48,6 @@ export default function FormPage() {
               >
                 <h5
                   className="text-center py-4 fw-bolder"
-                  style={{
-                    textDecoration: "underline",
-                    textDecorationThickness: "3px",
-                    textUnderlineOffset: "4px",
-                  }}
                 >
                   Magic Maker!
                 </h5>
@@ -130,7 +124,7 @@ export default function FormPage() {
                 </div>
                 <div className="d-flex justify-content-end pe-4">
                   <button
-                    type="button"
+                    type="submit"
                     className="btn btn-labeled btn-primary btn-lg my-3"
                   >
                     Download
