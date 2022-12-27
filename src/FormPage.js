@@ -39,18 +39,21 @@ export default function FormPage() {
   // const videoData = files[0];
   // console.log(videoData )
   const videos = files[0];
- 
+  const formData = new FormData();
+  formData.append("videos",videos);
+  formData.append("textRes",textRes)
+  // console.log(typeof(videos));
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("http://172.107.57.134:8095/dialogFlow", { text })
+      .post("http://172.107.57.134:8095/dialogFlow",  text )
       .then((res) => {
         setTextRes(res.data.response);
         console.log(res.data.response);
       })
       .catch((err) => console.log(err));
     axios
-      .post("http://216.48.186.249:5002/voicecloning", { videos,textRes  })
+      .post("http://216.48.186.249:5002/voicecloning", formData)
       .then((res) => {
         console.log(res);
       })

@@ -5,6 +5,7 @@ import { FaVideo } from "react-icons/fa";
 export default function Dropzone(props) {
   const [files, setFiles] = useState([]);
   const { getRootProps, getInputProps } = useDropzone({
+    accept: "video/*",
     onDrop: (acceptedFiles) => {
       setFiles(
         acceptedFiles.map((file) =>
