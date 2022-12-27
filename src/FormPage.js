@@ -1,41 +1,61 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import bg from "./images/bg1.jpeg";
 import Image from "./Image";
 import Dropzone from "./Dropzone";
+import axios from "axios";
 
 export default function FormPage() {
   const { renderVideo, files } = Dropzone();
   const { renderImage, image } = Image();
   const [checked, setChecked] = useState("");
-  const [text,setText] = useState('')
+  const [textRes, setTextRes] = useState("");
+  const [text, setText] = useState("");
   const [mov, setMov] = useState(true);
   const [avi, setAvi] = useState(true);
   const [mpg, setMpg] = useState(true);
   const handleChange = (data) => {
-    if(data === "mov"){
-      if(mov === true){
-        setChecked('mov')
-        setMov(!mov)
+    if (data === "mov") {
+      if (mov === true) {
+        setChecked("mov");
+        setMov(!mov);
       }
     }
-    if(data === "avi"){
-      if(avi === true){
-        setChecked('avi')
-        setAvi(!avi)
+    if (data === "avi") {
+      if (avi === true) {
+        setChecked("avi");
+        setAvi(!avi);
       }
     }
-    if(data === "mpg"){
-      if(mpg === true){
-        setChecked('mpg')
-        setMpg(!mpg)
+    if (data === "mpg") {
+      if (mpg === true) {
+        setChecked("mpg");
+        setMpg(!mpg);
       }
     }
     // console.log(data);
   };
+  // const videoBlob = files[0]?.preview;
+  // console.log(files[0]);
+  // const videoData = files[0];
+  // console.log(videoData )
+  const videos = files[0];
+ 
   const handleSubmit = (e) => {
-    e.preventDefault()
-    console.log(files[0].preview,image[0].preview,text,checked);
-  }
+    e.preventDefault();
+    axios
+      .post("http://172.107.57.134:8095/dialogFlow", { text })
+      .then((res) => {
+        setTextRes(res.data.response);
+        console.log(res.data.response);
+      })
+      .catch((err) => console.log(err));
+    axios
+      .post("http://216.48.186.249:5002/voicecloning", { videos,textRes  })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => console.log(err));
+  };
   return (
     <>
       <div
@@ -103,7 +123,7 @@ export default function FormPage() {
                     placeholder="Type your text here"
                     name="text"
                     value={text}
-                    onChange={(e)=>setText(e.target.value)}
+                    onChange={(e) => setText(e.target.value)}
                   />
                 </div>
                 <div className="shadow mx-4 p-2 mb-3">

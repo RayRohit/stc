@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { FaVideo } from "react-icons/fa";
 
@@ -15,7 +15,6 @@ export default function Dropzone(props) {
       );
     },
   });
-  console.log(files);
   return {
     files,
     renderVideo: (

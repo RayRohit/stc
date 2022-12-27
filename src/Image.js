@@ -15,7 +15,6 @@ export default function Image(props) {
       );
     },
   });
-  console.log(image);
   return {
     image,
     renderImage: (
