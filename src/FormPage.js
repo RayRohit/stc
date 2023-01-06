@@ -8,7 +8,7 @@ export default function FormPage() {
   const { renderVideo, files } = Dropzone();
   const { renderImage, image } = Image();
   const [checked, setChecked] = useState("");
-  const [textRes, setTextRes] = useState("");
+  const [textRes, setTextRes] = useState(null);
   const [text, setText] = useState("");
   const [mov, setMov] = useState(true);
   const [avi, setAvi] = useState(true);
@@ -34,31 +34,38 @@ export default function FormPage() {
     }
     // console.log(data);
   };
-  // const videoBlob = files[0]?.preview;
-  // console.log(files[0]);
-  // const videoData = files[0];
-  // console.log(videoData )
   const videos = files[0];
   const formData = new FormData();
-  formData.append("videos",videos);
-  formData.append("textRes",textRes)
-  // console.log(typeof(videos));
+  formData.append("textRes", textRes);
+  formData.append("videos", videos);
+  formData.append("formatType",checked)
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("http://172.107.57.134:8095/dialogFlow",  text )
-      .then((res) => {
-        setTextRes(res.data.response);
-        console.log(res.data.response);
+      .post("http://172.107.57.134:8095/dialogFlow", {
+        languageCode: "en",
+        sessionId: "NewSession",
+        queryText: text,
       })
-      .catch((err) => console.log(err));
-    axios
-      .post("http://216.48.186.249:5002/voicecloning", formData)
       .then((res) => {
-        console.log(res);
+        // const charText = res.data.response.split('.').splice(0,20).join(' ') 
+        const charText = res.data.response.split('.')[0]
+        // setTextRes(res.data.response);
+        setTextRes(charText);
+        console.log(charText);
       })
       .catch((err) => console.log(err));
   };
+  useEffect(() => {
+    if (textRes !== null) {
+      axios
+        .post("http://216.48.186.249:5002/voicecloning", formData)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [files, textRes,checked]);
   return (
     <>
       <div
@@ -66,7 +73,6 @@ export default function FormPage() {
         style={{
           background: `url(${bg})`,
           backgroundRepeat: "no-repeat",
-
           backgroundSize: "cover",
         }}
       >
