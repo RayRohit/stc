@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import bg from "./images/bg1.jpeg";
+// import bg from "./images/stcwall.avif";
+import bg from "./images/wal.jpg";
 import Image from "./Image";
 import Dropzone from "./Dropzone";
 import axios from "axios";
@@ -56,16 +57,16 @@ export default function FormPage() {
       })
       .catch((err) => console.log(err));
   };
-  useEffect(() => {
-    if (textRes !== null) {
-      axios
-        .post("http://216.48.186.249:5002/voicecloning", formData)
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((err) => console.log(err));
-    }
-  }, [files, textRes,checked]);
+  // useEffect(() => {
+  //   if (textRes !== null) {
+  //     axios
+  //       .post("http://216.48.186.249:5002/voicecloning", formData)
+  //       .then((res) => {
+  //         console.log(res);
+  //       })
+  //       .catch((err) => console.log(err));
+  //   }
+  // }, [files, textRes,checked]);
   return (
     <>
       <div
@@ -74,6 +75,7 @@ export default function FormPage() {
           background: `url(${bg})`,
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
+          objectFit:'cover'
         }}
       >
         <div className="row">
@@ -106,7 +108,7 @@ export default function FormPage() {
             >
               <form
                 className="shadow-lg bg-white mb-3"
-                style={{ minHeight: "60vh", borderRadius: "20px" }}
+                style={{  borderRadius: "20px" }}
                 onSubmit={handleSubmit}
               >
                 <h5 className="text-center py-4 fw-bolder">Magic Maker!</h5>
