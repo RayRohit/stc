@@ -6,29 +6,32 @@ import Dropzone from "./Dropzone";
 import axios from "axios";
 
 export default function FormPage() {
-  const { renderVideo, files } = Dropzone();
+  const [files, setFiles] = useState([]);
+
+  const { renderVideo } = Dropzone({ files, setFiles });
   const { renderImage, image } = Image();
   const [checked, setChecked] = useState("");
   const [textRes, setTextRes] = useState(null);
   const [text, setText] = useState("");
-  const [mov, setMov] = useState(true);
-  const [avi, setAvi] = useState(true);
-  const [mpg, setMpg] = useState(true);
+  const [mov, setMov] = useState(false);
+  const [avi, setAvi] = useState(false);
+  const [mpg, setMpg] = useState(false);
+
   const handleChange = (data) => {
     if (data === "mov") {
-      if (mov === true) {
+      if (mov === false) {
         setChecked("mov");
         setMov(!mov);
       }
     }
     if (data === "avi") {
-      if (avi === true) {
+      if (avi === false) {
         setChecked("avi");
         setAvi(!avi);
       }
     }
     if (data === "mpg") {
-      if (mpg === true) {
+      if (mpg === false) {
         setChecked("mpg");
         setMpg(!mpg);
       }
@@ -67,6 +70,12 @@ export default function FormPage() {
           const a = document.createElement("a");
           a.href = `http://216.48.186.249:5002/${res.data.file_path}`;
           a.click();
+          setFiles([]);
+          setText("");
+          setChecked("");
+          setMov(false);
+          setAvi(false);
+          setMpg(false);
         })
         .catch((err) => console.log(err));
     }
@@ -155,10 +164,10 @@ export default function FormPage() {
                         </label>
                         <input
                           className="form-check-input"
-                          type="checkbox"
-                          value={mov}
+                          type="radio"
+                          checked={mov}
                           id="flexCheckDefault"
-                          name="flexCheckDefault"
+                          name="downloadFormat"
                           onChange={() => handleChange("mov")}
                         />
                       </div>
@@ -171,10 +180,10 @@ export default function FormPage() {
                         </label>
                         <input
                           className="form-check-input"
-                          type="checkbox"
-                          value={avi}
+                          type="radio"
+                          checked={avi}
                           id="flexCheckChecked"
-                          name="flexCheckChecked"
+                          name="downloadFormat"
                           onChange={() => handleChange("avi")}
                         />
                       </div>
@@ -184,10 +193,10 @@ export default function FormPage() {
                         </label>
                         <input
                           className="form-check-input"
-                          type="checkbox"
-                          value={mpg}
+                          type="radio"
+                          checked={mpg}
                           id="flexCheck"
-                          name="flexCheck"
+                          name="downloadFormat"
                           onChange={() => handleChange("mpg")}
                         />
                       </div>
