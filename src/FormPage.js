@@ -35,11 +35,6 @@ export default function FormPage() {
     }
     // console.log(data);
   };
-  const videos = files[0];
-  const formData = new FormData();
-  formData.append("textRes", textRes);
-  formData.append("videos", videos);
-  formData.append("formatType",checked)
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
@@ -49,24 +44,34 @@ export default function FormPage() {
         queryText: text,
       })
       .then((res) => {
-        // const charText = res.data.response.split('.').splice(0,20).join(' ') 
-        const charText = res.data.response.split('.')[0]
+        // const charText = res.data.response.split('.').splice(0,20).join(' ')
+        const charText = res.data.response.split(".")[0];
         // setTextRes(res.data.response);
         setTextRes(charText);
         console.log(charText);
       })
       .catch((err) => console.log(err));
   };
-  // useEffect(() => {
-  //   if (textRes !== null) {
-  //     axios
-  //       .post("http://216.48.186.249:5002/voicecloning", formData)
-  //       .then((res) => {
-  //         console.log(res);
-  //       })
-  //       .catch((err) => console.log(err));
-  //   }
-  // }, [files, textRes,checked]);
+
+  useEffect(() => {
+    if (textRes !== null) {
+      const videos = files[0];
+      const formData = new FormData();
+      formData.append("textRes", textRes);
+      formData.append("videos", videos);
+      formData.append("formatType", checked);
+      axios
+        .post("http://216.48.186.249:5002/voicecloning", formData)
+        .then((res) => {
+          console.log(res);
+          const a = document.createElement("a");
+          a.href = `http://216.48.186.249:5002/${res.data.file_path}`;
+          a.click();
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [textRes]);
+
   return (
     <>
       <div
@@ -75,7 +80,7 @@ export default function FormPage() {
           background: `url(${bg})`,
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
-          objectFit:'cover'
+          objectFit: "cover",
         }}
       >
         <div className="row">
@@ -108,7 +113,7 @@ export default function FormPage() {
             >
               <form
                 className="shadow-lg bg-white mb-3"
-                style={{  borderRadius: "20px" }}
+                style={{ borderRadius: "20px" }}
                 onSubmit={handleSubmit}
               >
                 <h5 className="text-center py-4 fw-bolder">Magic Maker!</h5>
