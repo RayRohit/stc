@@ -3,7 +3,7 @@ import { useDropzone } from "react-dropzone";
 import { FaImage } from "react-icons/fa";
 
 export default function Image(props) {
-  const [image, setImage] = useState([]);
+  const{image, setImage} = props;
   const { getRootProps, getInputProps } = useDropzone({
     onDrop: (acceptedFiles) => {
       setImage(
@@ -16,7 +16,6 @@ export default function Image(props) {
     },
   });
   return {
-    image,
     renderImage: (
       <section className="container" style={{}}>
         <div

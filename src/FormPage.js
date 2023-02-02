@@ -7,9 +7,10 @@ import axios from "axios";
 
 export default function FormPage() {
   const [files, setFiles] = useState([]);
+  const [image, setImage] = useState([]);
 
   const { renderVideo } = Dropzone({ files, setFiles });
-  const { renderImage, image } = Image();
+  const { renderImage } = Image({ image, setImage });
   const [checked, setChecked] = useState("");
   const [textRes, setTextRes] = useState(null);
   const [text, setText] = useState("");
@@ -58,26 +59,50 @@ export default function FormPage() {
 
   useEffect(() => {
     if (textRes !== null) {
-      const videos = files[0];
-      const formData = new FormData();
-      formData.append("textRes", textRes);
-      formData.append("videos", videos);
-      formData.append("formatType", checked);
-      axios
-        .post("http://216.48.186.249:5002/voicecloning", formData)
-        .then((res) => {
-          console.log(res);
-          const a = document.createElement("a");
-          a.href = `http://216.48.186.249:5002/${res.data.file_path}`;
-          a.click();
-          setFiles([]);
-          setText("");
-          setChecked("");
-          setMov(false);
-          setAvi(false);
-          setMpg(false);
-        })
-        .catch((err) => console.log(err));
+      if (files.length !== 0) {
+        const videos = files[0];
+        const formData = new FormData();
+        formData.append("textRes", textRes);
+        formData.append("videos", videos);
+        formData.append("formatType", checked);
+
+        axios
+          .post("http://216.48.186.249:5002/voicecloning", formData)
+          .then((res) => {
+            console.log(res);
+            const a = document.createElement("a");
+            a.href = `http://216.48.186.249:5002/${res.data.file_path}`;
+            a.click();
+            setFiles([]);
+            setText("");
+            setChecked("");
+            setMov(false);
+            setAvi(false);
+            setMpg(false);
+          })
+          .catch((err) => console.log(err));
+      } else if (image.length !== 0) {
+        const imagee = image[0];
+        const formDataOne = new FormData();
+        formDataOne.append("textRes", textRes);
+        formDataOne.append("videos", imagee);
+        formDataOne.append("formatType", checked);
+        axios
+          .post("http://216.48.186.249:5002/imagecloning", formDataOne)
+          .then((res) => {
+            console.log(res);
+            const a = document.createElement("a");
+            a.href = `http://216.48.186.249:5002/${res.data.file_path}`;
+            a.click();
+            setImage([]);
+            setText("");
+            setChecked("");
+            setMov(false);
+            setAvi(false);
+            setMpg(false);
+          })
+          .catch((err) => console.log(err));
+      }
     }
   }, [textRes]);
 
@@ -121,20 +146,59 @@ export default function FormPage() {
               style={{ height: "100%" }}
             >
               <form
-                className="shadow-lg bg-white mb-3"
+                className="shadow-lg bg-white mb-3 mx-auto"
                 style={{ borderRadius: "20px" }}
                 onSubmit={handleSubmit}
               >
                 <h5 className="text-center py-4 fw-bolder">Magic Maker!</h5>
                 <div className="row">
-                  <div className="col-sm-6 col-md-12 col-lg-6 my-2">
+                  {files.length !== 0 ? (
+                    <>
+                      <div className="col-sm-12 col-md-12 col-lg-12 my-2">
+                        {renderVideo}
+                      </div>
+
+                      <div
+                        className="col-sm-6 col-md-12 col-lg-6 my-2 "
+                        style={{ display: "none" }}
+                      >
+                        {renderImage}
+                      </div>
+                    </>
+                  ) : image.length !== 0 ? (
+                    <>
+                      <div
+                        className="col-sm-6 col-md-12 col-lg-6 my-2"
+                        style={{ display: "none" }}
+                      >
+                        {renderVideo}
+                      </div>
+
+                      <div className="col-sm-12 col-md-12 col-lg-12 my-2">
+                        {renderImage}
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div className="col-sm-6 col-md-12 col-lg-6 my-2">
+                        {renderVideo}
+                      </div>
+
+                      <div className="col-sm-6 col-md-12 col-lg-6 my-2">
+                        {renderImage}
+                      </div>
+                    </>
+                  )}
+
+                  {/* <div className="col-sm-6 col-md-12 col-lg-6 my-2">
                     {renderVideo}
                   </div>
+
                   <div className="col-sm-6 col-md-12 col-lg-6 my-2">
                     {renderImage}
-                  </div>
+                  </div> */}
                 </div>
-                <div className="px-4 mb-3">
+                <div className="px-4 mb-3 w-100">
                   <textarea
                     maxLength="50"
                     style={{

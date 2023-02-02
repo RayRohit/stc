@@ -3,7 +3,7 @@ import { useDropzone } from "react-dropzone";
 import { FaVideo } from "react-icons/fa";
 
 export default function Dropzone(props) {
-  const { files, setFiles } = props;
+  const { files, setFiles} = props;
   const { getRootProps, getInputProps } = useDropzone({
     accept: "video/*",
     onDrop: (acceptedFiles) => {
@@ -17,7 +17,7 @@ export default function Dropzone(props) {
     },
   });
   return {
-    renderVideo: (
+    renderVideo: (    
       <section className="container">
         <div
           {...getRootProps({ className: "dropzone" })}
